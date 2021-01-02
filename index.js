@@ -16,39 +16,23 @@ client.on('message', async message => {
     await message.channel.send(
       new discord.MessageEmbed({
         author: {
-          name: 'Among Bot',
+          name: 'Among US Bot',
           iconURL:
             'https://cdn.discordapp.com/avatars/756745742261157910/5b93edacbf552e0ee3451531e6b38303.png?size=256',
         },
-        description:
-          'Juega Among Us de la manera correcta, sin soplones, ni gritones. 🔇',
+        description: 'Mute your friends in among us!',
         fields: [
           {
-            name: 'Acerca de mí',
-            value:
-              'Among Bot silenciará a todos los jugadores en partida hasta que sea la hora de discutir y funarse sin piedad. 🔥',
-          },
-          {
-            name: 'Comandos',
+            name: 'Commands',
             value: dedent`
-                \`-m|-mute\` para mutear.
-                \`-u|-unmute\` para desmutear.
-                \`-i|-info\` para información.
+                \`-m|-mute\` to mute.
+                \`-u|-unmute\` to unmute.
+                \`-i|-info\` for help.
               `,
-          },
-          {
-            name: 'Adóptame en tu servidor',
-            value:
-              'Among Bot funciona en todos los servidores que desees, [haz click aquí para agregarme](https://discord.com/api/oauth2/authorize?client_id=756745742261157910&permissions=0&scope=bot).',
-          },
-          {
-            name: 'Contribuciones',
-            value:
-              'Among Bot es open source, puedes ver el código fuente y contribuir a su desarrollo [haciendo click aquí](https://github.com/gantoreno/among-bot).',
           },
         ],
         footer: {
-          text: 'Gabriel Moreno © MuteBot 2020',
+          text: "wadu's mutebot",
         },
       })
     );
@@ -57,10 +41,10 @@ client.on('message', async message => {
   if (message.content.match(/^\-(m|mute)$/)) {
     if (utils.channel.notInVoiceChannel(message.member)) {
       await message.react('😐');
-      await message.reply('❌ No estás en un canal de voz.');
+      await message.reply("❌ You're not in a voice channel!");
     } else {
       await message.react('👍🏻');
-      await message.channel.send('🔇 ¡Shhhh, silencio!.');
+      await message.channel.send('🔇 Muted!');
       await utils.channel.setGlobalMuteState(
         message.member.voice.channel.members,
         true
@@ -71,10 +55,10 @@ client.on('message', async message => {
   if (message.content.match(/^\-(u|unmute)$/)) {
     if (utils.channel.notInVoiceChannel(message.member)) {
       await message.react('😐');
-      await message.reply('❌ No estás en un canal de voz.');
+      await message.reply("❌ You're not in a voice channel!");
     } else {
       await message.react('👍🏻');
-      await message.channel.send('🔊 Ya pueden hablar.');
+      await message.channel.send('🔊 Now speak!');
       await utils.channel.setGlobalMuteState(
         message.member.voice.channel.members,
         false
